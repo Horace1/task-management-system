@@ -14,7 +14,7 @@
                             <p class="mt-2 text-sm text-gray-700">A list of all the projects</p>
                         </div>
                         <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                            <a href="{{ route('create-projects') }}" type="button" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Create Project</a>
+                            <a href="{{ route('create-projects') }}" wire:navigate type="button" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Create Project</a>
                         </div>
                     </div>
                     <div class="mt-8 flow-root">
@@ -27,9 +27,7 @@
                                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Start Date</th>
                                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">End Date</th>
                                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Description</th>
-                                        <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
-                                            <span class="sr-only">Edit</span>
-                                        </th>
+                                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody class="divide-y divide-gray-200 bg-white">
@@ -46,6 +44,11 @@
                                             </td>
                                             <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                                                 <div class="text-gray-900">{{ $project->description }}</div>
+                                            </td>
+                                            <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+                                                <a href="{{ route('view-project',$project->id) }}" wire:navigate class="text-gray-900 text-lg"><i class="fa-solid fa-file-invoice"></i></a>
+                                                <a href="{{ route('edit-projects',$project->id) }}" wire:navigate class="text-gray-900 text-lg px-5"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                <button wire:click="delete({{ $project->id }})" class="text-gray-900 text-lg"><i class="fa-solid fa-trash"></i></button>
                                             </td>
                                         </tr>
                                     @endforeach

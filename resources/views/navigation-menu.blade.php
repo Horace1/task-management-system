@@ -12,10 +12,10 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                    <x-nav-link href="{{ route('dashboard') }}" wire:navigate :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('view-projects') }}" :active="request()->routeIs('projects')">
+                    <x-nav-link href="{{ route('view-projects') }}" wire:navigate :active="request()->routeIs('projects')">
                         {{ __('Projects') }}
                     </x-nav-link>
                 </div>

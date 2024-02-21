@@ -9,7 +9,7 @@ class ViewProjects extends Component
 {
     public function render()
     {
-        $projects = Project::all();
-        return view('livewire.projects.view-projects', ['projects' => $projects]);
+        ;
+        return view('livewire.projects.view-projects', ['projects' => $projects = Project::all()]);
     }
 }
