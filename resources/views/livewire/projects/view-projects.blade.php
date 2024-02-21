@@ -4,18 +4,17 @@
             {{ __('Projects') }}
         </h2>
     </x-slot>
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="px-4 sm:px-6 lg:px-8">
                     <div class="sm:flex sm:items-center">
-                        <div class="sm:flex-auto">
-                            <h1 class="text-base font-semibold leading-6 text-gray-900">Users</h1>
-                            <p class="mt-2 text-sm text-gray-700">A list of all the projects in your account</p>
+                        <div class="sm:flex-auto mt-5">
+                            <h1 class="text-base font-semibold leading-6 text-gray-900">Projects</h1>
+                            <p class="mt-2 text-sm text-gray-700">A list of all the projects</p>
                         </div>
                         <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                            <button type="button" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Add user</button>
+                            <a href="{{ route('create-projects') }}" type="button" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Create Project</a>
                         </div>
                     </div>
                     <div class="mt-8 flow-root">
@@ -34,22 +33,22 @@
                                     </tr>
                                     </thead>
                                     <tbody class="divide-y divide-gray-200 bg-white">
-                                        @foreach($projects as $project)
-                                            <tr>
-                                                <td class="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
-                                                    <div class="font-medium text-gray-900">{{ $project->name }}</div>
-                                                </td>
-                                                <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                                                    <div class="text-gray-900">{{ $project->start_date }}</div>
-                                                </td>
-                                                <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                                                    <div class="text-gray-900">{{ $project->end_date }}</div>
-                                                </td>
-                                                <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                                                    <div class="text-gray-900">{{ $project->description }}</div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                    @foreach($projects as $project)
+                                        <tr>
+                                            <td class="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
+                                                <div class="font-medium text-gray-900">{{ $project->name }}</div>
+                                            </td>
+                                            <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+                                                <div class="text-gray-900">{{ $project->start_date }}</div>
+                                            </td>
+                                            <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+                                                <div class="text-gray-900">{{ $project->end_date }}</div>
+                                            </td>
+                                            <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+                                                <div class="text-gray-900">{{ $project->description }}</div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>

@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Livewire\Projects;
+use App\Livewire\Projects\ViewProjects;
+use App\Livewire\Projects\CreateProjects;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,10 +27,8 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-//    Route::get('/projects', function () {
-//        return view('projects');
-//    })->name('projects');
 
-    Route::get('/projects', Projects::class)->name('projects');
+    Route::get('/projects', ViewProjects::class)->name('view-projects');
+    Route::get('/create-projects', CreateProjects::class)->name('create-projects');
 
 });
