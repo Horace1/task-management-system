@@ -11,10 +11,10 @@ class CreateProjects extends Component
     #[Rule('required|min:3|max:50')]
     public $name;
 
-    #[Rule('required|date')]
+    #[Rule('required|date|after:today')]
     public $start_date;
 
-    #[Rule('required|date')]
+    #[Rule('required|date|after:today')]
     public $end_date;
 
     #[Rule('required|min:3|max:255')]

@@ -25,7 +25,7 @@
                                     <div class="sm:col-span-3">
                                         <label for="start-date" class="block text-sm font-medium leading-6 text-gray-900">Start Date</label>
                                         <div class="mt-2">
-                                            <input wire:model="start_date" type="date" name="start-date" id="start-date" value="{{ $project->start_date }}" autocomplete="start-date" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                            <input wire:model="start_date" type="date" name="start-date" id="start-date" value="{{ $project->formatted_start_date }}" autocomplete="start-date"  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                             @error('startDate')
                                             <span class="text-red-500 text-xs mt-3 block">{{ $message }}</span>
                                             @enderror
@@ -34,7 +34,7 @@
                                     <div class="sm:col-span-3">
                                         <label for="end-date" class="block text-sm font-medium leading-6 text-gray-900">End Date</label>
                                         <div class="mt-2">
-                                            <input wire:model="end_date" type="date" name="end-date" id="end-date" value="{{ $project->end_date }}" autocomplete="end-date" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                            <input wire:model="end_date" type="date" name="end-date" id="end-date" value="{{ $project->formatted_end_date }}" autocomplete="end-date" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                             @error('endDate')
                                             <span class="text-red-500 text-xs mt-3 block">{{ $message }}</span>
                                             @enderror

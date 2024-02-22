@@ -24,6 +24,7 @@
                                 <table class="min-w-full divide-y divide-gray-300">
                                     <thead>
                                     <tr>
+                                        <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Task</th>
                                         <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Project</th>
                                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Start Date</th>
                                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">End Date</th>
@@ -41,10 +42,10 @@
                                                 <div class="font-medium text-gray-900">{{ $task->project->name }}</div>
                                             </td>
                                             <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                                                <div class="text-gray-900">{{ $task->start_date }}</div>
+                                                <div class="text-gray-900">{{ $task->formatted_start_date }}</div>
                                             </td>
                                             <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                                                <div class="text-gray-900">{{ $task->end_date }}</div>
+                                                <div class="text-gray-900">{{ $task->formatted_end_date }}</div>
                                             </td>
                                             <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                                                 <div class="text-gray-900">{{ $task->description }}</div>
@@ -52,7 +53,7 @@
                                             <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                                                 <a href="{{ route('view-task',$task->id) }}" wire:navigate class="text-gray-900 text-lg"><i class="fa-solid fa-file-invoice"></i></a>
                                                 <a href="{{ route('edit-task',$task->id) }}" wire:navigate class="text-gray-900 text-lg px-5"><i class="fa-solid fa-pen-to-square"></i></a>
-                                                <button wire:click="delete({{ $task->id }})" class="text-gray-900 text-lg"><i class="fa-solid fa-trash"></i></button>
+                                                <button type="button" wire:click="delete({{ $task->id }})" wire:confirm="Are you sure you want to delete this task?" class="text-gray-900 text-lg"><i class="fa-solid fa-trash"></i></button>
                                             </td>
                                         </tr>
                                     @endforeach

@@ -21,15 +21,20 @@
                             </div>
                             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-900">Start Date</dt>
-                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ $project->start_date }}</dd>
+                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ $project->formatted_start_date }}</dd>
                             </div>
                             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-900">End Date</dt>
-                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ $project->end_date }}</dd>
+                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ $project->formatted_end_date }}</dd>
                             </div>
                             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-900">Description</dt>
                                 <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ $project->description }}</dd>
+                            </div>
+                            <div class="px-4 py-6 flex">
+                                <a href="{{ route('view-projects') }}" wire:navigate type="button" class="text-sm font-semibold leading-6 text-gray-900 ml-auto">
+                                    <i class="fa-solid fa-arrow-left"></i> Back
+                                </a>
                             </div>
                         </dl>
                     </div>

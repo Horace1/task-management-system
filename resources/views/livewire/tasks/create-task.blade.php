@@ -24,14 +24,13 @@
                                 <div class="sm:col-span-4 mt-10">
                                     <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Project Name</label>
                                     <div class="mt-2">
-                                        <select wire:model="project_id" name="project_id" id="project-id" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                        <select wire:model.lazy="project_id" name="project_id" id="project-id" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                             <option value="#">Please select a project</option>
                                             @foreach($projects as $project)
                                                 <option value="{{ $project->id }}">{{ $project->name }}</option>
                                             @endforeach
                                         </select>
-{{--                                        <input wire:model="name" id="name" name="name" type="text" autocomplete="project-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">--}}
-                                        @error('name')
+                                        @error('project_id')
                                         <span class="text-red-500 text-xs mt-3 block">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -40,8 +39,8 @@
                                     <div class="sm:col-span-3">
                                         <label for="start-date" class="block text-sm font-medium leading-6 text-gray-900">Start Date</label>
                                         <div class="mt-2">
-                                            <input wire:model="start_date" type="date" name="start-date" id="start-date" autocomplete="start-date" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                            @error('startDate')
+                                            <input wire:model="start_date" type="date" name="start-date" id="start-date" autocomplete="start-date" min="{{ $minStartDate }}" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                            @error('start_date')
                                             <span class="text-red-500 text-xs mt-3 block">{{ $message }}</span>
                                             @enderror
                                         </div>
@@ -49,8 +48,8 @@
                                     <div class="sm:col-span-3">
                                         <label for="end-date" class="block text-sm font-medium leading-6 text-gray-900">End Date</label>
                                         <div class="mt-2">
-                                            <input wire:model="end_date" type="date" name="end-date" id="end-date" autocomplete="end-date" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                            @error('endDate')
+                                            <input wire:model="end_date" type="date" name="end-date" id="end-date" autocomplete="end-date" max="{{ $maxEndDate }}" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                            @error('end_date')
                                             <span class="text-red-500 text-xs mt-3 block">{{ $message }}</span>
                                             @enderror
                                         </div>

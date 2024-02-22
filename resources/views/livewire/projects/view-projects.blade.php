@@ -37,10 +37,10 @@
                                                 <div class="font-medium text-gray-900">{{ $project->name }}</div>
                                             </td>
                                             <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                                                <div class="text-gray-900">{{ $project->start_date }}</div>
+                                                <div class="text-gray-900">{{ $project->formatted_start_date }}</div>
                                             </td>
                                             <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                                                <div class="text-gray-900">{{ $project->end_date }}</div>
+                                                <div class="text-gray-900">{{ $project->formatted_end_date }}</div>
                                             </td>
                                             <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                                                 <div class="text-gray-900">{{ $project->description }}</div>
@@ -48,7 +48,7 @@
                                             <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                                                 <a href="{{ route('view-project',$project->id) }}" wire:navigate class="text-gray-900 text-lg"><i class="fa-solid fa-file-invoice"></i></a>
                                                 <a href="{{ route('edit-project',$project->id) }}" wire:navigate class="text-gray-900 text-lg px-5"><i class="fa-solid fa-pen-to-square"></i></a>
-                                                <button wire:click="delete({{ $project->id }})" class="text-gray-900 text-lg"><i class="fa-solid fa-trash"></i></button>
+                                                <button type="button" wire:click="delete({{ $project->id }})" wire:confirm="Are you sure you want to delete this post?" class="text-gray-900 text-lg"><i class="fa-solid fa-trash"></i></button>
                                             </td>
                                         </tr>
                                     @endforeach

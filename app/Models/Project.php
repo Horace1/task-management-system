@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Project extends Model
 {
@@ -15,4 +16,18 @@ class Project extends Model
         'end_date',
         'description',
     ];
+
+    public function getFormattedStartDateAttribute()
+    {
+        $startDate = Carbon::parse($this->attributes['start_date']);
+
+        return $startDate->format('d/m/Y');
+    }
+
+    public function getFormattedEndDateAttribute()
+    {
+        $endDate = Carbon::parse($this->attributes['end_date']);
+
+        return $endDate->format('d/m/Y');
+    }
 }
