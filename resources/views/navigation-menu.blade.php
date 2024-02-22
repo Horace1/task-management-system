@@ -15,8 +15,11 @@
                     <x-nav-link href="{{ route('dashboard') }}" wire:navigate :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('view-projects') }}" wire:navigate :active="request()->routeIs('projects')">
+                    <x-nav-link href="{{ route('view-projects') }}" wire:navigate :active="request()->routeIs('view-projects')">
                         {{ __('Projects') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('view-tasks') }}" wire:navigate :active="request()->routeIs('view-tasks')">
+                        {{ __('Tasks') }}
                     </x-nav-link>
                 </div>
             </div>
