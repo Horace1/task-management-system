@@ -24,9 +24,11 @@
                                     <thead>
                                     <tr>
                                         <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Project</th>
+                                        <th scope="col" class="px-0 py-3.5 text-left text-sm font-semibold text-gray-900">Tasks</th>
                                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Start Date</th>
                                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">End Date</th>
                                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Description</th>
+
                                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Action</th>
                                     </tr>
                                     </thead>
@@ -35,6 +37,9 @@
                                         <tr>
                                             <td class="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
                                                 <div class="font-medium text-gray-900">{{ $project->name }}</div>
+                                            </td>
+                                            <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+                                                <div class="font-medium text-gray-900">{{ $project->task_count }}</div>
                                             </td>
                                             <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                                                 <div class="text-gray-900">{{ $project->formatted_start_date }}</div>

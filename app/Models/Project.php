@@ -30,4 +30,15 @@ class Project extends Model
 
         return $endDate->format('d/m/Y');
     }
+
+    public function getTaskCountAttribute()
+    {
+        return $this->task->count();
+    }
+
+    public function task()
+    {
+        return $this->hasMany(Task::class);
+    }
+
 }
