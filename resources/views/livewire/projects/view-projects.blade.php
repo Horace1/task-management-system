@@ -20,6 +20,30 @@
                     <div class="mt-8 flow-root">
                         <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                             <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+
+
+                                <div class="flex mb-5">
+                                    <!-- First element -->
+                                    <label for="search-field" class="sr-only">Search</label>
+                                    <div class="relative w-full border-b">
+                                        <svg class="pointer-events-none absolute inset-y-0 left-0 h-full w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
+                                        </svg>
+                                        <input wire:model.live.debounce.500ms="search" id="search-field" class="block h-full w-full border-0 bg-transparent py-0 pl-8 pr-0 text-gray-900 focus:ring-0 sm:text-sm" placeholder="Search..." type="search" name="search">
+                                    </div>
+
+                                    <!-- Second element -->
+                                        <select wire:model.live="sortStartDate" name="sort_start_date" id="sort_start_date" class="ml-5 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                            <option value="asc">Start date Ascending</option>
+                                            <option value="desc">Start date Descending</option>
+                                        </select>
+
+                                        <select wire:model.live="sortEndDate" name="sort_end_date" id="sort_end_date" class="ml-5 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                            <option value="asc">End date Ascending</option>
+                                            <option value="desc">End date Descending</option>
+                                        </select>
+                                </div>
+
                                 <table class="min-w-full divide-y divide-gray-300">
                                     <thead>
                                     <tr>
@@ -59,6 +83,9 @@
                                     @endforeach
                                     </tbody>
                                 </table>
+                                <div class="my-2">
+                                    {{ $projects->links() }}
+                                </div>
                             </div>
                         </div>
                     </div>
