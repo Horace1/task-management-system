@@ -20,8 +20,6 @@
                     <div class="mt-8 flow-root">
                         <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                             <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-
-
                                 <div class="flex mb-5">
                                     <!-- First element -->
                                     <label for="search-field" class="sr-only">Search</label>
@@ -31,7 +29,6 @@
                                         </svg>
                                         <input wire:model.live.debounce.500ms="search" id="search-field" class="block h-full w-full border-0 bg-transparent py-0 pl-8 pr-0 text-gray-900 focus:ring-0 sm:text-sm" placeholder="Search..." type="search" name="search">
                                     </div>
-
                                     <!-- Second element -->
                                         <select wire:model.live="sortStartDate" name="sort_start_date" id="sort_start_date" class="ml-5 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                             <option value="asc">Start date Ascending</option>
@@ -47,7 +44,9 @@
                                 <table class="min-w-full divide-y divide-gray-300">
                                     <thead>
                                     <tr>
+                                        <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">#</th>
                                         <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Project</th>
+                                        <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Project Manager</th>
                                         <th scope="col" class="px-0 py-3.5 text-left text-sm font-semibold text-gray-900">Tasks</th>
                                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Start Date</th>
                                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">End Date</th>
@@ -60,7 +59,13 @@
                                     @foreach($projects as $project)
                                         <tr>
                                             <td class="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
+                                                <div class="font-medium text-gray-900">{{ $project->id }}</div>
+                                            </td>
+                                            <td class="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
                                                 <div class="font-medium text-gray-900">{{ $project->name }}</div>
+                                            </td>
+                                            <td class="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
+                                                <div class="font-medium text-gray-900">{{ $project->manager->full_name }}</div>
                                             </td>
                                             <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                                                 <div class="font-medium text-gray-900">{{ $project->task_count }}</div>

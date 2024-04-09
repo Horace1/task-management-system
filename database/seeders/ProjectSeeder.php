@@ -17,6 +17,7 @@ class ProjectSeeder extends Seeder
             ['id' => 1],
             [
                 'name' => 'Project 1',
+                'user_id' => '2',
                 'start_date' => '2024/02/20',
                 'end_date' => '2024/02/25',
                 'description' => 'This is project 1 description'
@@ -27,6 +28,7 @@ class ProjectSeeder extends Seeder
             ['id' => 2],
             [
                 'name' => 'Project 2',
+                'user_id' => '2',
                 'start_date' => '2024/02/20',
                 'end_date' => '2024/02/25',
                 'description' => 'This is project 2 description'
@@ -37,6 +39,7 @@ class ProjectSeeder extends Seeder
             ['id' => 3],
             [
                 'name' => 'Project 3',
+                'user_id' => '2',
                 'start_date' => '2024/02/20',
                 'end_date' => '2024/02/25',
                 'description' => 'This is project 3 description'

@@ -22,6 +22,20 @@
                                     </div>
                                 </div>
                                 <div class="sm:col-span-4 mt-10">
+                                    <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Employee</label>
+                                    <div class="mt-2">
+                                        <select wire:model="employee" name="employees" id="project_manager" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                            <option value="#">Please select a employee</option>
+                                            @foreach($employees as $employee)
+                                                <option value="{{ $employee->id }}">{{ $employee->full_name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('employee')
+                                        <span class="text-red-500 text-xs mt-3 block">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="sm:col-span-4 mt-10">
                                     <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Project Name</label>
                                     <div class="mt-2">
                                         <select wire:model.lazy="project_id" name="project_id" id="project-id" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">

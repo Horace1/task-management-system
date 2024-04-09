@@ -16,7 +16,7 @@
                             </div>
                             <dl class="my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
                                 <div class="flex items-center justify-center">
-                                    <h1 class="text-4xl font-bold">5</h1>
+                                    <h1 class="text-4xl font-bold">{{ $projects }}</h1>
                                 </div>
                             </dl>
                         </li>
@@ -27,7 +27,7 @@
                             </div>
                             <dl class="my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
                                 <div class="flex items-center justify-center">
-                                    <h1 class="text-4xl font-bold">5</h1>
+                                    <h1 class="text-4xl font-bold">{{ $tasks }}</h1>
                                 </div>
                             </dl>
                         </li>
@@ -38,7 +38,7 @@
                             </div>
                             <dl class="my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
                                 <div class="flex items-center justify-center">
-                                    <h1 class="text-4xl font-bold">5</h1>
+                                    <h1 class="text-4xl font-bold">{{ $users }}</h1>
                                 </div>
                             </dl>
                         </li>

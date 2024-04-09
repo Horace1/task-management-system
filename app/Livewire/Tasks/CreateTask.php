@@ -4,12 +4,14 @@ namespace App\Livewire\Tasks;
 
 use App\Models\Task;
 use App\Models\Project;
+use App\Models\User;
 use Livewire\Component;
 
 class CreateTask extends Component
 {
 
     public $name;
+    public $employee;
     public $project_id;
     public $start_date;
     public $end_date;
@@ -26,6 +28,7 @@ class CreateTask extends Component
     {
         return [
             'name' => 'required|min:3|max:50',
+            'employee' => 'required',
             'project_id' => 'required',
             'start_date' => 'required|date|before_or_equal:end_date',
             'end_date' => 'required|date|after_or_equal:start_date',
@@ -60,7 +63,7 @@ class CreateTask extends Component
     public function save()
     {
         $validated = $this->validate();
-
+        $validated['user_id'] = $this->employee;
         Task::create($validated);
         $this->reset();
 
@@ -74,6 +77,7 @@ class CreateTask extends Component
 
     public function render()
     {
-        return view('livewire.tasks.create-task',['projects' => Project::all()]);
+        $employees = User::where('role_id',3)->get();
+        return view('livewire.tasks.create-task',['projects' => Project::all(), 'employees' => $employees]);
     }
 }

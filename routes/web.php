@@ -10,6 +10,10 @@ use App\Livewire\Tasks\ViewTasks;
 use App\Livewire\Tasks\ViewTask;
 use App\Livewire\Tasks\EditTask;
 use App\Livewire\Tasks\CreateTask;
+use App\Livewire\Users\ViewUsers;
+use App\Livewire\Users\ViewUser;
+use App\Livewire\Users\EditUser;
+use App\Livewire\Users\CreateUser;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,5 +50,10 @@ Route::middleware([
     Route::get('/edit-task/{id}', EditTask::class)->name('edit-task');
     Route::get('/view-task/{id}', ViewTask::class)->name('view-task');
     Route::get('/create-task', CreateTask::class)->name('create-task');
+
+    Route::get('/users', ViewUsers::class)->name('view-users');
+    Route::get('/edit-user/{id}', EditUser::class)->name('edit-user');
+    Route::get('/view-user/{id}', ViewUser::class)->name('view-user');
+    Route::get('/create-user', CreateUser::class)->name('create-user');
 
 });

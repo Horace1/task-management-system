@@ -13,37 +13,25 @@ class TaskSeeder extends Seeder
      */
     public function run(): void
     {
-        Task::firstOrCreate(
+        // Assuming there are projects with ids 1 and 2 in the projects table
+        $projects = [
             ['id' => 1],
-            [
-                'name' => 'Task 1',
-                'project_id' => '1',
-                'start_date' => '2024/02/22',
-                'end_date' => '2024/03/25',
-                'description' => 'Task 1 for project 1'
-            ]
-        );
-
-        Task::firstOrCreate(
             ['id' => 2],
-            [
-                'name' => 'Task 2',
-                'project_id' => '2',
-                'start_date' => '2024/02/22',
-                'end_date' => '2024/03/25',
-                'description' => 'Task 2 for project 1'
-            ]
-        );
-
-        Task::firstOrCreate(
             ['id' => 3],
-            [
-                'name' => 'Task 3',
-                'project_id' => '1',
-                'start_date' => '2024/02/22',
-                'end_date' => '2024/03/25',
-                'description' => 'Task 3 for project 1'
-            ]
-        );
+        ];
+
+        foreach ($projects as $project) {
+            Task::firstOrCreate(
+                ['id' => $project['id']], // Use project id as the task id
+                [
+                    'name' => 'Task for Project ' . $project['id'],
+                    'project_id' => $project['id'],
+                    'user_id' => '3',
+                    'start_date' => '2024-02-22',
+                    'end_date' => '2024-03-25',
+                    'description' => 'Task for project ' . $project['id'],
+                ]
+            );
+        }
     }
 }
