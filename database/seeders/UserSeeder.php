@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::firstOrCreate(
+        $admin =User::firstOrCreate(
             ['id' => 1],
             [
                 'first_name' => 'Horace',
@@ -26,7 +26,9 @@ class UserSeeder extends Seeder
             ],
         );
 
-        User::firstOrCreate(
+        $admin->assign('admin');
+
+        $project_manager = User::firstOrCreate(
             ['id' => 2],
             [
                 'first_name' => 'John',
@@ -38,7 +40,9 @@ class UserSeeder extends Seeder
             ],
         );
 
-        User::firstOrCreate(
+        $project_manager->assign('project-manager');
+
+        $employee = User::firstOrCreate(
             ['id' => 3],
             [
                 'first_name' => 'Jane',
@@ -49,5 +53,8 @@ class UserSeeder extends Seeder
                 'role_id' => 3,
             ],
         );
+
+        $employee->assign('employee');
+
     }
 }

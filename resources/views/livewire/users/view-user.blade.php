@@ -15,6 +15,14 @@
                 <div class="border-t border-gray-100">
                     <dl class="divide-y divide-gray-100">
                         <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt class="text-sm font-medium text-gray-900">Photo image</dt>
+                            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                                @if($user->profile_photo_path)
+                                    <img class="h-20 w-20" src="{{ asset('storage/'.$user->profile_photo_path) }}" alt="User Profile Photo">
+                                @endif
+                            </dd>
+                        </div>
+                        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <dt class="text-sm font-medium text-gray-900">First Name</dt>
                             <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ $user->first_name }}</dd>
                         </div>
@@ -28,7 +36,7 @@
                         </div>
                         <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <dt class="text-sm font-medium text-gray-900">Role</dt>
-                            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ $user->role->name }}</dd>
+                            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ $user->role->title }}</dd>
                         </div>
                         <div class="px-4 py-6 flex">
                             <a href="{{ route('view-users') }}" wire:navigate type="button" class="text-sm font-semibold leading-6 text-gray-900 ml-auto">
