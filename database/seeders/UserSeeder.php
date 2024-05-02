@@ -17,11 +17,11 @@ class UserSeeder extends Seeder
         $admin =User::firstOrCreate(
             ['id' => 1],
             [
-                'first_name' => 'Horace',
-                'last_name' => 'Benjamin',
+                'first_name' => 'admin',
+                'last_name' => 'admin',
                 'contact_number' => '123456789',
-                'email' => 'horacebenjamin84@googlemail.com',
-                'password' => Hash::make('Anthonyb1'),
+                'email' => 'admin@admin.com',
+                'password' => Hash::make('admin123'),
                 'role_id' => 1,
             ],
         );

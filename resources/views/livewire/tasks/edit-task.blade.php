@@ -36,6 +36,33 @@
                                 </div>
                                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                     <div class="sm:col-span-3">
+                                        <label for="employees" class="block text-sm font-medium leading-6 text-gray-900">Employee</label>
+                                        <div class="mt-2">
+                                            <select wire:model="tasks_employees" multiple id="employees" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                @foreach($employees as $key => $value)
+                                                    <option value="{{ $value }}">{{ $value }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('tasks_employees')
+                                            <span class="text-red-500 text-xs mt-3 block">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="sm:col-span-3">
+                                        <label for="status" class="block text-sm font-medium leading-6 text-gray-900">Status</label>
+                                        <div class="mt-2">
+                                            <select wire:model="status" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                <option value="#">Please select a status</option>
+                                                @foreach($statuses as $status)
+                                                    <option value="{{ $status->id }}">{{ $status->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('status')
+                                            <span class="text-red-500 text-xs mt-3 block">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="sm:col-span-3">
                                         <label for="start-date" class="block text-sm font-medium leading-6 text-gray-900">Start Date</label>
                                         <div class="mt-2">
                                             <input wire:model="start_date" type="date" name="start-date" id="start-date" value="{{ $task->start_date }}" min="{{ $minStartDate }}" autocomplete="start-date"  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
@@ -78,4 +105,16 @@
             </div>
         </div>
     </div>
+    @script()
+        <script>
+            $(document).ready(function(){
+                $('#employees').select2();
+
+                $('#employees').on('change', function() {
+                    let data = $(this).val();
+                    $wire.set('employees', data, false);
+                });
+            })
+        </script>
+    @endscript
 </div>

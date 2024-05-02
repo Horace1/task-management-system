@@ -26,7 +26,8 @@ class TaskSeeder extends Seeder
                 [
                     'name' => 'Task for Project ' . $project['id'],
                     'project_id' => $project['id'],
-                    'user_id' => '3',
+                    'employees' => 'jane Doe',
+                    'status' => 1,
                     'start_date' => '2024-02-22',
                     'end_date' => '2024-03-25',
                     'description' => 'Task for project ' . $project['id'],

@@ -3,6 +3,7 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Edit User') }}
         </h2>
+
     </x-slot>
 
     <div class="py-12">
@@ -54,26 +55,6 @@
                                 </div>
                                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                     <div class="sm:col-span-3">
-                                        <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
-                                        <div class="mt-2">
-                                            <input wire:model="password" id="password" name="password" type="password" autocomplete="password" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                            @error('password')
-                                            <span class="text-red-500 text-xs mt-3 block">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="sm:col-span-3">
-                                        <label for="password_confirmation" class="block text-sm font-medium leading-6 text-gray-900">Password Confirmation</label>
-                                        <div class="mt-2">
-                                            <input wire:model="password_confirmation" id="password_confirmation" name="password_confirmation" type="password" autocomplete="password" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                            @error('password_confirmation')
-                                            <span class="text-red-500 text-xs mt-3 block">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                                    <div class="sm:col-span-3">
                                         <label for="role_id" class="block text-sm font-medium leading-6 text-gray-900">Role</label>
                                         <div class="mt-2">
                                             <select wire:model="role_id" name="role_id" id="role_id" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
@@ -91,17 +72,24 @@
                                         <div class="col-span-full">
                                             <label for="photo" class="block text-sm font-medium leading-6 text-gray-900">User Photo</label>
                                             <div class="mt-2 flex items-center gap-x-3">
-                                                @if ($profile_photo_path)
-                                                    <img class="rounded-full w-20 h-20" src="{{ $profile_photo_path->temporaryUrl() }}">
+                                                @if ($current_profile_photo_path)
+                                                    @if($profile_photo_path?->temporaryUrl())
+                                                        <img class="rounded-full w-20 h-20" src="{{ $profile_photo_path->temporaryUrl() }}">
+                                                    @else
+                                                        <img class="rounded-full w-20 h-20" src="{{ $current_profile_photo_path }}">
+                                                    @endif
                                                 @else
                                                     <svg class="h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                                                         <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clip-rule="evenodd" />
                                                     </svg>
                                                 @endif
-                                                <input wire:model="profile_photo_path" type="file" class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                                                <div wire:loading wire:target="profile_photo_path">
+                                                    <span class="text-green-500">uploading....</span>
+                                                </div>
+                                                <input wire:model="profile_photo_path" accept="image/jpeg" type="file" class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
                                             </div>
                                         </div>
-                                        @error('file_upload')
+                                        @error('profile_photo_path')
                                         <span class="text-red-500 text-xs mt-3 block">{{ $message }}</span>
                                         @enderror
                                     </div>

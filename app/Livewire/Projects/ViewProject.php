@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class ViewProject extends Component
 {
-    public $id;
+    public string $id;
 
     public function mount($id)
     {

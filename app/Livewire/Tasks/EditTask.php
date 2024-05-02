@@ -4,42 +4,32 @@ namespace App\Livewire\Tasks;
 
 use App\Models\Task;
 use App\Models\Project;
+use App\Models\TaskStatus;
+use App\Models\User;
+use Illuminate\Support\Facades\Session;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class EditTask extends Component
 {
     public $id;
-    public $name;
-    public $project_id;
-    public $start_date;
-    public $end_date;
-    public $description;
+    #[Validate('required|min:3|max:50')]
+    public string $name = '';
+    #[Validate('required', as: "employee's")]
+    public array $employees;
+    #[Validate('required')]
+    public string $status = '';
+    #[Validate('required', as: 'project')]
+    public string $project_id = '';
+    #[Validate('required|date|before_or_equal:end_date', message: 'The start date must be before or equal to the end date.')]
+    public string $start_date = '';
+    #[Validate('required|date|after_or_equal:start_date', message: 'The end date must be after or equal to the start date.')]
+    public string $end_date = '';
+    #[Validate('required|min:3|max:255')]
+    public string $description = '';
 
     public $minStartDate;
     public $maxEndDate;
-
-    public $validationAttributes = [
-        'project_id' => 'project',
-    ];
-
-    public function rules()
-    {
-        return [
-            'name' => 'required|min:3|max:50',
-            'project_id' => 'required',
-            'start_date' => 'required|date|before_or_equal:end_date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'description' => 'required|min:3|max:255',
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'start_date.before_or_equal' => 'The start date must be before or equal to the end date.',
-            'end_date.after_or_equal' => 'The end date must be after or equal to the start date.',
-        ];
-    }
 
     public function mount($id)
     {
@@ -47,6 +37,8 @@ class EditTask extends Component
         $task = Task::find($id);
         $this->name = $task->name;
         $this->project_id = $task->project_id;
+        $this->employees = explode(",", $task->employees);
+        $this->status = $task->status;
         $this->start_date = $task->start_date;
         $this->end_date = $task->end_date;
         $this->description = $task->description;
@@ -62,12 +54,16 @@ class EditTask extends Component
         Task::find($this->id)->update([
             'name' => $this->name,
             'project_id' => $this->project_id,
+            'employees' => implode(",", $this->employees),
+            'status' => $this->status,
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,
             'description' => $this->description,
         ]);
 
-        $this->redirect('/projects');
+        Session::flash('success', 'Task updated successfully.');
+
+        $this->redirect('/tasks');
     }
 
     public function clearForm()
@@ -77,6 +73,11 @@ class EditTask extends Component
 
     public function render()
     {
-        return view('livewire.tasks.edit-task', ['task' => Task::find($this->id),'projects' => Project::all()]);
+        $users = User::whereIn('role_id', [2, 3])->get();
+        return view('livewire.tasks.edit-task', [
+            'task' => Task::find($this->id),
+            'task_employees' => $users->where('role_id', 3),
+            'statuses' => TaskStatus::all(),
+            'projects' => Project::all()]);
     }
 }

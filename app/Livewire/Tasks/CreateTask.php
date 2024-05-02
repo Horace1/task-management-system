@@ -4,44 +4,32 @@ namespace App\Livewire\Tasks;
 
 use App\Models\Task;
 use App\Models\Project;
+use App\Models\TaskStatus;
 use App\Models\User;
+use Illuminate\Support\Facades\Session;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class CreateTask extends Component
 {
 
-    public $name;
-    public $employee;
-    public $project_id;
-    public $start_date;
-    public $end_date;
-    public $description;
+    #[Validate('required|min:3|max:50', as: 'task name')]
+    public string $name = '';
+    #[Validate('required', as: "employee's")]
+    public array $employees = [];
+    #[Validate('required')]
+    public string $status = '';
+    #[Validate('required', as: 'project name')]
+    public string $project_id = '';
+    #[Validate('required|date|before_or_equal:end_date')]
+    public string $start_date = '';
+    #[Validate('required|date|after_or_equal:start_date')]
+    public string $end_date = '';
+    #[Validate('required|min:3|max:255')]
+    public string $description = '';
 
     public $minStartDate;
     public $maxEndDate;
-
-    public $validationAttributes = [
-        'project_id' => 'project',
-    ];
-
-    public function rules()
-    {
-        return [
-            'name' => 'required|min:3|max:50',
-            'employee' => 'required',
-            'project_id' => 'required',
-            'start_date' => 'required|date|before_or_equal:end_date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'description' => 'required|min:3|max:255',
-        ];
-    }
-
-    public function attributes()
-    {
-        return [
-            'project_id' => 'Project',
-        ];
-    }
 
     public function messages()
     {
@@ -63,8 +51,13 @@ class CreateTask extends Component
     public function save()
     {
         $validated = $this->validate();
-        $validated['user_id'] = $this->employee;
+
+        $validated['employees'] = implode(" , ",$validated['employees']);
+
         Task::create($validated);
+
+        Session::flash('success', 'Task saved successfully.');
+
         $this->reset();
 
         return $this->redirect('/tasks');
@@ -77,7 +70,10 @@ class CreateTask extends Component
 
     public function render()
     {
-        $employees = User::where('role_id',3)->get();
-        return view('livewire.tasks.create-task',['projects' => Project::all(), 'employees' => $employees]);
+        $users = User::whereIn('role_id', [2, 3])->get();
+        return view('livewire.tasks.create-task',[
+            'projects' => Project::all(),
+            'task_employees' => $users->where('role_id', 3),
+            'statuses' => TaskStatus::all() ]);
     }
 }

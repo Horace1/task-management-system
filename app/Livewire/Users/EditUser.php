@@ -5,7 +5,9 @@ namespace App\Livewire\Users;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use Livewire\Attributes\Validate;
 use Livewire\WithFileUploads;
 use Livewire\Component;
 
@@ -15,37 +17,23 @@ class EditUser extends Component
 
     public $id;
     public $profile_photo_path;
-    public $first_name;
-    public $last_name;
-    public $email;
-    public $contact_number;
-    public $password;
-    public $password_confirmation;
-    public $role_id;
-
-    public $validationAttributes = [
-        'role_id' => 'role',
-    ];
-
-    public function rules()
-    {
-        return [
-            'profile_photo_path' => 'image',
-            'first_name' => 'required|min:3|max:50',
-            'last_name' => 'required|min:3|max:50',
-            'email' => 'required|email',
-            'contact_number' => 'required|min:3|max:11',
-            'password' => 'required|min:3|max:25',
-            'password_confirmation' => 'required|same:password',
-            'role_id' => 'required',
-        ];
-    }
+    public $current_profile_photo_path;
+    #[Validate('required|min:3|max:50')]
+    public string $first_name = '';
+    #[Validate('required|min:3|max:50')]
+    public string $last_name = '';
+    #[Validate('required|email')]
+    public string $email = '';
+    #[Validate('required|min:3|max:11')]
+    public string $contact_number = '';
+    #[Validate('required', as: 'role')]
+    public string $role_id;
 
     public function mount($id)
     {
         $user = User::find($id);
         $this->id = $id;
-        $this->profile_photo_path = $user->profile_photo_path ? asset('storage/' . $user->profile_photo_path) : null;
+        $this->current_profile_photo_path = $user->profile_photo_path ? asset('storage/' . $user->profile_photo_path) : null;
         $this->first_name = $user->first_name;
         $this->last_name = $user->last_name;
         $this->email = $user->email;
@@ -59,8 +47,14 @@ class EditUser extends Component
 
         if ($this->profile_photo_path) {
             $photoPath = $this->profile_photo_path->store('photos', 'public');
+            $this->validate([
+                'profile_photo_path' => 'nullable|image|mimes:jpeg,png,gif,svg|max:2048',
+            ]);
         } else {
-            $photoPath = null;
+            $photoPath = $this->current_profile_photo_path;
+            $this->validate([
+                'profile_photo_path' => 'nullable|image|mimes:jpeg,png,gif,svg|max:2048',
+            ]);
         }
 
         User::find($this->id)->update([
@@ -69,9 +63,10 @@ class EditUser extends Component
             'last_name' => $this->last_name,
             'email' => $this->email,
             'contact_number' => $this->contact_number,
-            'password' => Hash::make($this->password),
             'role_id' => $this->role_id,
         ]);
+
+        Session::flash('success', 'User updated successfully.');
 
         $this->redirect('/users');
     }

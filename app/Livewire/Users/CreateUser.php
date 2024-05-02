@@ -5,6 +5,8 @@ namespace App\Livewire\Users;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
+use Livewire\Attributes\Validate;
 use Livewire\WithFileUploads;
 use Livewire\Component;
 
@@ -12,33 +14,22 @@ class CreateUser extends Component
 {
     use WithFileUploads;
 
+    #[Validate('nullable|image|mimes:jpeg,png,gif,svg|max:2048')]
     public $profile_photo_path;
-    public $first_name;
-    public $last_name;
-    public $email;
-    public $contact_number;
-    public $password;
-    public $password_confirmation;
+    #[Validate('required|min:3|max:50')]
+    public string $first_name = '';
+    #[Validate('required|min:3|max:50')]
+    public string $last_name = '';
+    #[Validate('required|email')]
+    public string $email = '';
+    #[Validate('required|min:3|max:11')]
+    public string $contact_number = '';
+    #[Validate('required|min:3|max:25')]
+    public string $password = '';
+    #[Validate('required|same:password')]
+    public string $password_confirmation = '';
+    #[Validate('required', as: 'role')]
     public $role_id;
-
-    public $validationAttributes = [
-        'role_id' => 'role',
-    ];
-
-
-    public function rules()
-    {
-        return [
-            'profile_photo_path' => 'image',
-            'first_name' => 'required|min:3|max:50',
-            'last_name' => 'required|min:3|max:50',
-            'email' => 'required|email',
-            'contact_number' => 'required|min:3|max:11',
-            'password' => 'required|min:3|max:25',
-            'password_confirmation' => 'required|same:password',
-            'role_id' => 'required',
-        ];
-    }
 
     public function save()
     {
@@ -51,6 +42,8 @@ class CreateUser extends Component
         }
 
         User::create($validatedData);
+
+        Session::flash('success', 'User saved successfully.');
 
         $this->reset();
 

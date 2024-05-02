@@ -22,23 +22,9 @@
                                     </div>
                                 </div>
                                 <div class="sm:col-span-4 mt-10">
-                                    <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Employee</label>
-                                    <div class="mt-2">
-                                        <select wire:model="employee" name="employees" id="project_manager" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                            <option value="#">Please select a employee</option>
-                                            @foreach($employees as $employee)
-                                                <option value="{{ $employee->id }}">{{ $employee->full_name }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('employee')
-                                        <span class="text-red-500 text-xs mt-3 block">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="sm:col-span-4 mt-10">
                                     <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Project Name</label>
                                     <div class="mt-2">
-                                        <select wire:model.lazy="project_id" name="project_id" id="project-id" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                        <select wire:model="project_id" name="project_id" id="project-id" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                             <option value="#">Please select a project</option>
                                             @foreach($projects as $project)
                                                 <option value="{{ $project->id }}">{{ $project->name }}</option>
@@ -50,6 +36,34 @@
                                     </div>
                                 </div>
                                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                                    <div class="sm:col-span-3">
+                                        <label for="employees" class="block text-sm font-medium leading-6 text-gray-900">Employee</label>
+                                        <div class="mt-2">
+                                            <select wire:model="employees" multiple id="employees" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                <option value="#">Please select a employee</option>
+                                                @foreach($task_employees as $employee)
+                                                    <option value="{{ $employee->_full_name }}">{{ $employee->full_name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('employees')
+                                            <span class="text-red-500 text-xs mt-3 block">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="sm:col-span-3">
+                                        <label for="status" class="block text-sm font-medium leading-6 text-gray-900">Status</label>
+                                        <div class="mt-2">
+                                            <select wire:model="status" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                <option value="#">Please select a status</option>
+                                                @foreach($statuses as $status)
+                                                    <option value="{{ $status->id }}">{{ $status->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('status')
+                                            <span class="text-red-500 text-xs mt-3 block">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
                                     <div class="sm:col-span-3">
                                         <label for="start-date" class="block text-sm font-medium leading-6 text-gray-900">Start Date</label>
                                         <div class="mt-2">
@@ -93,4 +107,15 @@
             </div>
         </div>
     </div>
+    @script()
+        <script>
+                $('#employees').select2();
+
+                $('#employees').on('change', function() {
+                    let data = $(this).val();
+                    $wire.set('employees', data, false);
+                });
+        </script>
+    @endscript
 </div>
+

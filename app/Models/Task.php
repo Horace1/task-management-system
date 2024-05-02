@@ -12,7 +12,7 @@ class Task extends Model
 
     protected $fillable = [
         'name',
-        'user_id',
+        'employees',
         'project_id',
         'start_date',
         'end_date',
