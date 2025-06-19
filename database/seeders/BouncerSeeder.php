@@ -15,77 +15,75 @@ class BouncerSeeder extends Seeder
     public function run(): void
     {
         $admin = Bouncer::role()->firstOrCreate(
-            ['id' => 1],
-            [
-                'name' => 'admin',
-                'title' => 'Admin',
-            ]
+            ['name' => 'admin'],
+            ['title' => 'Admin']
         );
 
         $project_manager = Bouncer::role()->firstOrCreate(
-            ['id' => 2],
-            [
-                'name' => 'project-manager',
-                'title' => 'Project Manager',
-            ]
+            ['name' => 'project-manager'],
+            ['title' => 'Project Manager']
         );
 
         $employee = Bouncer::role()->firstOrCreate(
-            ['id' => 3],
-            [
-                'name' => 'employee',
-                'title' => 'Employee',
-            ]
+            ['name' => 'employee'],
+            ['title' => 'Employee']
         );
 
-        $create_project = Bouncer::ability()->firstOrCreate([
-            'name' => 'create-project',
-            'title' => 'Create Project',
-        ]);
+        $abilities = [
+            // Projects
+            ['name' => 'create-project', 'title' => 'Create Project'],
+            ['name' => 'edit-project', 'title' => 'Edit Project'],
+            ['name' => 'view-project', 'title' => 'View Single Project'],
+            ['name' => 'view-projects', 'title' => 'View All Projects'],
+            ['name' => 'delete-project', 'title' => 'Delete Project'],
 
-        $edit_project = Bouncer::ability()->firstOrCreate([
-            'name' => 'edit-project',
-            'title' => 'Edit Project',
-        ]);
+            // Tasks
+            ['name' => 'create-task', 'title' => 'Create Task'],
+            ['name' => 'edit-task', 'title' => 'Edit Task'],
+            ['name' => 'view-task', 'title' => 'View Task'],
+            ['name' => 'view-tasks', 'title' => 'View All Tasks'],
+            ['name' => 'delete-task', 'title' => 'Delete Task'],
 
-        $view_project = Bouncer::ability()->firstOrCreate([
-            'name' => 'view-project',
-            'title' => 'View Project',
-        ]);
+            // Users
+            ['name' => 'create-user', 'title' => 'Create User'],
+            ['name' => 'edit-user', 'title' => 'Edit User'],
+            ['name' => 'view-user', 'title' => 'View User'],
+            ['name' => 'view-users', 'title' => 'View All Users'],
+            ['name' => 'delete-user', 'title' => 'Delete User'],
+        ];
 
-        $view_projects = Bouncer::ability()->firstOrCreate([
-            'name' => 'view-projects',
-            'title' => 'View Projects',
-        ]);
-
-        $delete_task = Bouncer::ability()->firstOrCreate([
-            'name' => 'view-task',
-            'title' => 'View Project',
-        ]);
-
-        $create_task = Bouncer::ability()->firstOrCreate([
-            'name' => 'create-task',
-            'title' => 'Create Project',
-        ]);
-
-        $edit_task = Bouncer::ability()->firstOrCreate([
-            'name' => 'edit-task',
-            'title' => 'Edit Project',
-        ]);
-
-        $view_tasks = Bouncer::ability()->firstOrCreate([
-            'name' => 'view-task',
-            'title' => 'View Project',
-        ]);
-
-        $delete_tasks = Bouncer::ability()->firstOrCreate([
-            'name' => 'view-task',
-            'title' => 'View Project',
-        ]);
-
+        foreach ($abilities as $ability) {
+            Bouncer::ability()->firstOrCreate([
+                'name' => $ability['name']
+            ], [
+                'title' => $ability['title']
+            ]);
+        }
 
         Bouncer::allow($admin)->everything();
-        Bouncer::allow($project_manager)->to();
-        Bouncer::allow($employee)->to();
+
+        Bouncer::allow($project_manager)->to([
+            'create-project',
+            'edit-project',
+            'view-projects',
+            'view-project',
+            'create-task',
+            'edit-task',
+            'view-task',
+            'view-tasks',
+            'create-user',
+            'edit-user',
+            'view-user',
+            'view-users',
+            'delete-user',
+        ]);
+
+        Bouncer::allow($employee)->to([
+            'view-projects',
+            'view-project',
+            'view-task',
+            'view-tasks',
+        ]);
+
     }
 }

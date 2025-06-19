@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Redirect;
 use App\Livewire\Dashboard;
 use App\Livewire\Projects\ViewProjects;
 use App\Livewire\Projects\ViewProject;
@@ -28,7 +27,7 @@ use App\Livewire\Users\CreateUser;
 */
 
 Route::get('/', function () {
-    return Redirect::route('login');
+    return redirect()->route('login');
 });
 
 Route::middleware([
