@@ -9,21 +9,40 @@
                         <x-application-mark class="block h-9 w-auto" />
                     </a>
                 </div>
-
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('dashboard') }}" wire:navigate :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                    <x-nav-link href="{{ route('view-projects') }}" wire:navigate :active="request()->routeIs('view-projects')">
-                        {{ __('Projects') }}
-                    </x-nav-link>
-                    <x-nav-link href="{{ route('view-tasks') }}" wire:navigate :active="request()->routeIs('view-tasks')">
-                        {{ __('Tasks') }}
-                    </x-nav-link>
-                    <x-nav-link href="{{ route('view-users') }}" wire:navigate :active="request()->routeIs('view-users')">
-                        {{ __('Users') }}
-                    </x-nav-link>
+                    {{-- Common Dashboard Link --}}
+                    @auth
+                        @if(auth()->user()->role && auth()->user()->role->name === 'employee')
+                            <x-nav-link href="{{ route('employee.dashboard') }}" wire:navigate :active="request()->routeIs('employee.dashboard')">
+                                {{ __('Dashboard') }}
+                            </x-nav-link>
+
+                            <x-nav-link href="{{ route('employee.projects') }}" wire:navigate :active="request()->routeIs('employee.projects')">
+                                {{ __('Projects') }}
+                            </x-nav-link>
+
+                            <x-nav-link href="{{ route('employee.tasks') }}" wire:navigate :active="request()->routeIs('employee.tasks')">
+                                {{ __('Tasks') }}
+                            </x-nav-link>
+                        @else
+                            <x-nav-link href="{{ route('dashboard') }}" wire:navigate :active="request()->routeIs('dashboard')">
+                                {{ __('Dashboard') }}
+                            </x-nav-link>
+
+                            <x-nav-link href="{{ route('view-projects') }}" wire:navigate :active="request()->routeIs('view-projects')">
+                                {{ __('Projects') }}
+                            </x-nav-link>
+
+                            <x-nav-link href="{{ route('view-tasks') }}" wire:navigate :active="request()->routeIs('view-tasks')">
+                                {{ __('Tasks') }}
+                            </x-nav-link>
+
+                            <x-nav-link href="{{ route('view-users') }}" wire:navigate :active="request()->routeIs('view-users')">
+                                {{ __('Users') }}
+                            </x-nav-link>
+                        @endif
+                    @endauth
                 </div>
             </div>
 
