@@ -50,6 +50,7 @@ Route::middleware([
     // Admin + Project Manager
     Route::middleware('role:admin,project-manager')->group(function () {
         Route::get('/dashboard', Dashboard::class)->name('dashboard');
+
         Route::get('/projects', ViewProjects::class)->name('view-projects');
         Route::get('/edit-project/{id}', EditProject::class)->name('edit-project');
         Route::get('/view-project/{id}', ViewProject::class)->name('view-project');

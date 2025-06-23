@@ -2,43 +2,22 @@
 
 namespace Database\Seeders;
 
-use App\Models\ProjectStatus;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\ProjectStatus;
 
 class ProjectStatusSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        ProjectStatus::firstOrCreate(
-            ['id' => 1],
-            [
-                'name' => 'Pending'
-            ]
-        );
+        $statuses = [
+            'Pending',
+            'In Progress',
+            'Paused',
+            'Completed',
+        ];
 
-        ProjectStatus::firstOrCreate(
-            ['id' => 2],
-            [
-                'name' => 'In progress'
-            ]
-        );
-
-        ProjectStatus::firstOrCreate(
-            ['id' => 3],
-            [
-                'name' => 'Paused'
-            ]
-        );
-
-        ProjectStatus::firstOrCreate(
-            ['id' => 4],
-            [
-                'name' => 'Completed'
-            ]
-        );
+        foreach ($statuses as $name) {
+            ProjectStatus::firstOrCreate(['name' => $name]);
+        }
     }
 }

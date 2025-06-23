@@ -2,43 +2,22 @@
 
 namespace Database\Seeders;
 
-use App\Models\TaskStatus;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\TaskStatus;
 
 class TaskStatusSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        TaskStatus::firstOrCreate(
-            ['id' => 1],
-            [
-                'name' => 'Pending'
-            ]
-        );
+        $statuses = [
+            'Pending',
+            'In Progress',
+            'Paused',
+            'Done',
+        ];
 
-        TaskStatus::firstOrCreate(
-            ['id' => 2],
-            [
-                'name' => 'In progress'
-            ]
-        );
-
-        TaskStatus::firstOrCreate(
-            ['id' => 3],
-            [
-                'name' => 'Paused'
-            ]
-        );
-
-        TaskStatus::firstOrCreate(
-            ['id' => 4],
-            [
-                'name' => 'Done'
-            ]
-        );
+        foreach ($statuses as $name) {
+            TaskStatus::firstOrCreate(['name' => $name]);
+        }
     }
 }

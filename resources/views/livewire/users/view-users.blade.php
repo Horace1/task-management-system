@@ -1,8 +1,13 @@
 <div>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Users') }}
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-5">
+            @can('admin')
+                <span>{{ __('Admin Users') }}</span>
+            @else
+                <span>{{ __('Project Manager Users') }}</span>
+            @endcan
         </h2>
+        <h2>Welcome {{ Auth::user()->full_name }}</h2>
     </x-slot>
 
     <div class="py-12">

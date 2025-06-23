@@ -12,11 +12,11 @@ class Task extends Model
 
     protected $fillable = [
         'name',
-        'employees',
         'project_id',
         'start_date',
         'end_date',
         'description',
+        'task_status_id'
     ];
 
     public function getFormattedStartDateAttribute()
@@ -33,13 +33,19 @@ class Task extends Model
         return $endDate->format('d/m/Y');
     }
 
-    public function project()
+    public function projects()
     {
         return $this->belongsTo(Project::class);
     }
 
-    public function employee()
+    public function taskStatus()
     {
-        return $this->belongsTo(User::class,'user_id','id');
+        return $this->belongsTo(TaskStatus::class);
     }
+
+    public function employees()
+    {
+        return $this->belongsToMany(User::class, 'task_user');
+    }
+
 }
