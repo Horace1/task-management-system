@@ -20,72 +20,54 @@ class UserSeeder extends Seeder
                 'last_name' => 'Admin',
                 'email' => 'admin@admin.com',
                 'password' => 'admin123',
-                'role' => 'admin',
-                'role_id' => 1,
             ],
             [
                 'first_name' => 'John',
                 'last_name' => 'Doe',
                 'email' => 'johndoe@googlemail.com',
                 'password' => 'JohnDoe1',
-                'role' => 'project-manager',
-                'role_id' => 2,
             ],
             [
                 'first_name' => 'Tom',
                 'last_name' => 'Smith',
                 'email' => 'tomsmith@googlemail.com',
                 'password' => 'TomSmith1',
-                'role' => 'project-manager',
-                'role_id' => 2,
             ],
             [
                 'first_name' => 'Jane',
                 'last_name' => 'Doe',
                 'email' => 'janedoe@googlemail.com',
                 'password' => 'JaneDoe1',
-                'role' => 'employee',
-                'role_id' => 3,
             ],
             [
                 'first_name' => 'Tim',
                 'last_name' => 'West',
                 'email' => 'timwest@googlemail.com',
                 'password' => 'TimWest1',
-                'role' => 'employee',
-                'role_id' => 3,
             ],
             [
                 'first_name' => 'Anna',
                 'last_name' => 'West',
                 'email' => 'annawest@googlemail.com',
                 'password' => 'AnnaWest1',
-                'role' => 'employee',
-                'role_id' => 3,
             ],
             [
                 'first_name' => 'Paul',
                 'last_name' => 'Watson',
                 'email' => 'paulwatson@googlemail.com',
                 'password' => 'PaulWatson1',
-                'role' => 'employee',
-                'role_id' => 3,
             ],
             [
                 'first_name' => 'Dwayne',
                 'last_name' => 'Mclaren',
                 'email' => 'dwaynemclaren@googlemail.com',
                 'password' => 'DwayneMclaren1',
-                'role' => 'employee',
-                'role_id' => 3,
             ],
             [
                 'first_name' => 'Marvin',
                 'last_name' => 'Wilson',
                 'email' => 'marvinwilson@googlemail.com',
                 'password' => 'MarvinWilson1',
-                'role' => 'employee',
-                'role_id' => 3,
             ],
         ];
 
@@ -97,11 +79,8 @@ class UserSeeder extends Seeder
                     'last_name' => $data['last_name'],
                     'contact_number' => '123456789',
                     'password' => Hash::make($data['password']),
-                    'role_id' => $data['role_id'],
                 ]
             );
-
-            $user->assign($data['role']);
         }
 
     }

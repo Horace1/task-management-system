@@ -85,5 +85,18 @@ class BouncerSeeder extends Seeder
             'view-tasks',
         ]);
 
+        $roleAssignments = [
+            'admin' => [1],
+            'project-manager' => [2, 3],
+            'employee' => [4, 5, 6, 7, 8, 9],
+        ];
+
+        foreach ($roleAssignments as $role => $userIds) {
+            $users = User::whereIn('id', $userIds)->get();
+            foreach ($users as $user) {
+                Bouncer::sync($user)->roles([$role]);
+            }
+        }
+
     }
 }

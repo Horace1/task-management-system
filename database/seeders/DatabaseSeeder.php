@@ -16,10 +16,11 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ProjectStatusSeeder::class,
             TaskStatusSeeder::class,
-            BouncerSeeder::class,
             UserSeeder::class,
+            BouncerSeeder::class,
             ProjectSeeder::class,
             TaskSeeder::class,
+            TasksUserSeeder::class,
         ]);
 
     }

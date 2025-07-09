@@ -10,9 +10,9 @@ class TaskStatusSeeder extends Seeder
     public function run(): void
     {
         $statuses = [
+            'Not Started',
             'Pending',
             'In Progress',
-            'Paused',
             'Done',
         ];
 

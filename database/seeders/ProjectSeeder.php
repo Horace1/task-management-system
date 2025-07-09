@@ -29,16 +29,25 @@ class ProjectSeeder extends Seeder
                 'end_date' => '2024-02-25',
                 'description' => 'This is project 2 description',
                 'progress' => 30,
-                'project_status_id' => 2
+                'project_status_id' => 1
             ],
             [
                 'name' => 'Project 3',
-                'user_id' => 2,
+                'user_id' => 3,
                 'start_date' => '2024-02-20',
                 'end_date' => '2024-02-25',
                 'description' => 'This is project 3 description',
                 'progress' => 100,
-                'project_status_id' => 3
+                'project_status_id' => 1
+            ],
+            [
+                'name' => 'Project 4',
+                'user_id' => 3,
+                'start_date' => '2024-02-20',
+                'end_date' => '2024-02-25',
+                'description' => 'This is project 4 description',
+                'progress' => 100,
+                'project_status_id' => 1
             ],
         ];
 
