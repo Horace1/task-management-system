@@ -10,6 +10,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
+use Silber\Bouncer\Database\Role;
 
 class User extends Authenticatable
 {
@@ -70,9 +71,15 @@ class User extends Authenticatable
         return $this->first_name . ' ' . $this->last_name;
     }
 
-    public function role()
+    public function projects()
     {
-        return $this->belongsTo(Role::class);
+        return $this->hasMany(Project::class);
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'assigned_roles', 'entity_id')
+            ->wherePivot('entity_type', self::class);
     }
 
     public function tasks()

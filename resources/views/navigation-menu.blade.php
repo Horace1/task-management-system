@@ -13,8 +13,8 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     {{-- Common Dashboard Link --}}
                     @auth
-                        @if(auth()->user()->role && auth()->user()->role->name === 'employee')
-                            <x-nav-link href="{{ route('employee.dashboard') }}" wire:navigate :active="request()->routeIs('employee.dashboard')">
+                        @if(auth()->user()->isA('employee'))
+                        <x-nav-link href="{{ route('employee.dashboard') }}" wire:navigate :active="request()->routeIs('employee.dashboard')">
                                 {{ __('Dashboard') }}
                             </x-nav-link>
 

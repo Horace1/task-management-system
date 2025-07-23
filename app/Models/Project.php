@@ -37,7 +37,7 @@ class Project extends Model
         return $this->task->count();
     }
 
-    public function task()
+    public function tasks()
     {
         return $this->hasMany(Task::class);
     }
@@ -45,6 +45,11 @@ class Project extends Model
     public function manager()
     {
         return $this->belongsTo(User::class,'user_id','id');
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(ProjectStatus::class, 'project_status_id');
     }
 
 }

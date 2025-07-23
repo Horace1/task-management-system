@@ -33,7 +33,7 @@ class Task extends Model
         return $endDate->format('d/m/Y');
     }
 
-    public function projects()
+    public function project()
     {
         return $this->belongsTo(Project::class);
     }
@@ -43,7 +43,7 @@ class Task extends Model
         return $this->belongsTo(TaskStatus::class);
     }
 
-    public function employees()
+    public function users()
     {
         return $this->belongsToMany(User::class, 'task_user');
     }
