@@ -34,7 +34,7 @@ class Project extends Model
 
     public function getTaskCountAttribute()
     {
-        return $this->task->count();
+        return $this->tasks->count();
     }
 
     public function tasks()
