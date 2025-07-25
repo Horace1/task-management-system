@@ -17,6 +17,12 @@ class ViewProjects extends Component
 
     public $sortEndDate = 'asc';
 
+    public function getStartDateSortLabelProperty()
+    {
+        return 'Start Date ' . ($this->sortStartDate === 'asc' ? 'Ascending' : 'Descending');
+    }
+
+
     public function delete($id)
     {
         Project::find($id)->delete();
@@ -24,12 +30,12 @@ class ViewProjects extends Component
 
     public function render()
     {
-        return view('livewire.projects.view-projects', [
-            'projects' => Project::latest()
-                ->where('name', 'like', "%" . $this->search . "%")
-                ->orderBy('start_date', $this->sortStartDate)
-                ->orderBy('end_date', $this->sortEndDate)
-                ->paginate(10)
-        ]);
+        $projects = Project::latest()
+        ->where('name', 'like', "%" . $this->search . "%")
+        ->orderBy('start_date', $this->sortStartDate)
+        ->orderBy('end_date', $this->sortEndDate)
+        ->paginate(10);
+
+        return view('livewire.projects.view-projects', ['projects' => $projects]);
     }
 }

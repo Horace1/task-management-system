@@ -23,16 +23,13 @@ class ViewUsers extends Component
 
     public function render()
     {
-        return view('livewire.users.view-users', [
-            'users' => User::latest()
-                ->where(function ($query) {
-                    $query->where('first_name', 'like', "%" . $this->search . "%")
-                        ->orWhere('last_name', 'like', "%" . $this->search . "%");
-                })
-                ->orderBy('first_name', $this->firstNameDate)
-                ->orderBy('last_name', $this->lastNameDate)
-                ->paginate(10)
-        ]);
+        $users = User::where(function ($query) {
+            $query->where('first_name', 'like', "%" . $this->search . "%")
+                ->orWhere('last_name', 'like', "%" . $this->search . "%");
+        })
+         ->paginate(10);
+
+        return view('livewire.users.view-users', ['users' => $users]);
 
 
     }
