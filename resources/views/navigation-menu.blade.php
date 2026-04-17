@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ auth()->user()?->isA('employee') ? route('employee.dashboard') : route('dashboard') }}">
                         <x-application-mark class="block h-9 w-auto" />
                     </a>
                 </div>
@@ -167,9 +167,32 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
+            @auth
+                @if(auth()->user()->isA('employee'))
+                    <x-responsive-nav-link href="{{ route('employee.dashboard') }}" :active="request()->routeIs('employee.dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link href="{{ route('employee.projects') }}" :active="request()->routeIs('employee.projects')">
+                        {{ __('Projects') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link href="{{ route('employee.tasks') }}" :active="request()->routeIs('employee.tasks')">
+                        {{ __('Tasks') }}
+                    </x-responsive-nav-link>
+                @else
+                    <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link href="{{ route('view-projects') }}" :active="request()->routeIs('view-projects')">
+                        {{ __('Projects') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link href="{{ route('view-tasks') }}" :active="request()->routeIs('view-tasks')">
+                        {{ __('Tasks') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link href="{{ route('view-users') }}" :active="request()->routeIs('view-users')">
+                        {{ __('Users') }}
+                    </x-responsive-nav-link>
+                @endif
+            @endauth
         </div>
 
         <!-- Responsive Settings Options -->
@@ -182,7 +205,7 @@
                 @endif
 
                 <div>
-                    <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
+                    <div class="font-medium text-base text-gray-800">{{ Auth::user()->full_name }}</div>
                     <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
                 </div>
             </div>

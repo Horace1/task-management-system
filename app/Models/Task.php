@@ -4,11 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
 
 class Task extends Model
 {
     use HasFactory;
+
+    protected ?int $previousProjectId = null;
 
     protected $fillable = [
         'name',
@@ -18,6 +22,21 @@ class Task extends Model
         'description',
         'task_status_id'
     ];
+
+    protected static function booted(): void
+    {
+        static::updating(function (Task $task) {
+            $task->previousProjectId = $task->getOriginal('project_id');
+        });
+
+        static::saved(function (Task $task) {
+            $task->syncRelatedProjects();
+        });
+
+        static::deleted(function (Task $task) {
+            $task->syncRelatedProjects();
+        });
+    }
 
     public function getFormattedStartDateAttribute()
     {
@@ -33,19 +52,39 @@ class Task extends Model
         return $endDate->format('d/m/Y');
     }
 
-    public function project()
+    public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
     }
 
-    public function taskStatus()
+    public function taskStatus(): BelongsTo
     {
         return $this->belongsTo(TaskStatus::class);
     }
 
-    public function users()
+    public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'task_user');
     }
 
+    protected function syncRelatedProjects(): void
+    {
+        $projectIds = collect([
+            $this->project_id,
+            $this->previousProjectId,
+        ])
+            ->filter()
+            ->unique()
+            ->values();
+
+        if ($projectIds->isEmpty()) {
+            return;
+        }
+
+        Project::query()
+            ->whereIn('id', $projectIds)
+            ->get()
+            ->each
+            ->refreshProgressAndStatus();
+    }
 }

@@ -15,9 +15,14 @@
     {{--  Graph data  --}}
     <div class="mt-10 max-w-7xl mx-auto sm:px-6 lg:px-8">
         @if (session()->has('message'))
-            <div class="mb-6 rounded-lg bg-green-100 border border-green-300 text-green-800 px-4 py-3 flex items-center gap-2 shadow-sm">
-                <i class="fa-solid fa-circle-check text-green-600 mr-2"></i>
-                <span class="font-medium">{{ session('message') }}</span>
+            <div x-data="{ show: true }" x-show="show" class="mb-6 rounded-lg bg-green-100 border border-green-300 text-green-800 px-4 py-3 flex items-center justify-between shadow-sm">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-circle-check text-green-600 mr-2"></i>
+                    <span class="font-medium">{{ session('message') }}</span>
+                </div>
+                <button @click="show = false" type="button" class="text-green-600 hover:text-green-800 transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
             </div>
         @endif
 
@@ -102,7 +107,7 @@
     <div class="mt-10 max-w-7xl mx-auto sm:px-6 lg:px-8">
         <h3 class="text-lg font-semibold text-gray-700 mb-4">Quick Stats</h3>
         <ul role="list" class="grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-3 xl:gap-x-8">
-            <a href="">
+            <a href="{{ route('view-projects') }}" wire:navigate>
                 <li class="overflow-hidden rounded-xl border border-gray-200 hover:shadow-md transition">
                     <div class="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6 text-4xl justify-center">
                         <i class="fa-solid fa-folder-open"></i>
@@ -113,7 +118,7 @@
                     </div>
                 </li>
             </a>
-            <a href="">
+            <a href="{{ route('view-tasks') }}" wire:navigate>
                 <li class="overflow-hidden rounded-xl border border-gray-200 hover:shadow-md transition">
                     <div class="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6 text-4xl justify-center">
                         <i class="fa-solid fa-list-check"></i>
@@ -124,7 +129,7 @@
                     </div>
                 </li>
             </a>
-            <a href="">
+            <a href="{{ route('view-users') }}" wire:navigate>
                 <li class="overflow-hidden rounded-xl border border-gray-200 hover:shadow-md transition">
                     <div class="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6 text-4xl justify-center">
                         <i class="fa-solid fa-users"></i>
@@ -259,7 +264,7 @@
                 <!-- Modal Footer -->
                 <div class="mt-6 text-right">
                     <button
-                        @click="showModal = false"
+                        @click="viewProject = false"
                         class="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-800"
                     >
                         Close

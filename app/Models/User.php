@@ -10,7 +10,6 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
-use Silber\Bouncer\Database\Role;
 
 class User extends Authenticatable
 {
@@ -33,7 +32,6 @@ class User extends Authenticatable
         'email',
         'contact_number',
         'password',
-        'role_id'
     ];
 
     /**
@@ -64,7 +62,29 @@ class User extends Authenticatable
      */
     protected $appends = [
         'profile_photo_url',
+        'name',
     ];
+
+    public function getNameAttribute()
+    {
+        return $this->full_name;
+    }
+
+    public function setNameAttribute($value)
+    {
+        $name = trim((string) $value);
+
+        if ($name === '') {
+            return;
+        }
+
+        $parts = preg_split('/\s+/', $name);
+        $firstName = array_shift($parts);
+        $lastName = count($parts) ? implode(' ', $parts) : $firstName;
+
+        $this->attributes['first_name'] = $firstName;
+        $this->attributes['last_name'] = $lastName;
+    }
 
     public function getFullNameAttribute()
     {
@@ -74,12 +94,6 @@ class User extends Authenticatable
     public function projects()
     {
         return $this->hasMany(Project::class);
-    }
-
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class, 'assigned_roles', 'entity_id')
-            ->wherePivot('entity_type', self::class);
     }
 
     public function tasks()
