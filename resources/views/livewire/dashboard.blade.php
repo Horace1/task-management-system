@@ -227,7 +227,7 @@
         </div>
 
         <!-- View Modal Overlay -->
-        <div x-show="viewProject" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div x-cloak x-show="viewProject" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <!-- Modal Content -->
             <div class="bg-white rounded-xl shadow-xl p-6 w-full max-w-xl mx-auto">
                 <!-- Modal Header -->

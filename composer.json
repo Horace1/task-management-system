@@ -12,7 +12,8 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.0",
-        "silber/bouncer": "^1.0"
+        "silber/bouncer": "^1.0",
+        "ext-pdo": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.15",
